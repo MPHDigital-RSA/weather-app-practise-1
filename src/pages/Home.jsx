@@ -1,5 +1,5 @@
 import React from 'react'
-import Sun from '../assets/Sun.png'
+import Sun from '../assets/sun.svg'
 import { Link } from 'react-router-dom'
 
 function Home() {

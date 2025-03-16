@@ -2,32 +2,43 @@ import React from 'react'
 import CityCard from './CityCard'
 import TempCard from './TempCard'
 import HumAndWindCard from './HumAndWindCard'
-import HumidityImage from '../assets/humidity.png'
-import WindSpeed from '../assets/wind.png'
+import HumidityImage from '../assets/humidity.svg'
+import WindSpeed from '../assets/wind.svg'
+import ErrorBoundary from './ErrorBoundary'
+import useWeatherStore from '../stores/WeatherStore'
 
 function WeatherData() {
-    return (
-        <div className='bg-white rounded-xl p-[15px] w-[100%] max-w-[900px] grid gap-[15px] md:grid-cols-2'>
 
+    const myWeather = useWeatherStore((state) => state.WeatherData)
+
+    return (
+        <div className='bg-white rounded-xl p-[15px] w-[100%] max-w-[900px] grid gap-[15px] md:grid-cols-2' >
             <div>
-                <CityCard />
+                <ErrorBoundary fallback={<p>Something went wrong</p>}>
+                    <CityCard />
+                </ErrorBoundary>
             </div>
 
             <div className='grid gap-[15px]'>
                 <div>
-                    <TempCard />
+                    <ErrorBoundary fallback={<p>Something went wrong</p>}>
+                        <TempCard />
+                    </ErrorBoundary>
                 </div>
                 <div className='grid gap-[15px] grid-cols-2'>
                     <div>
-                        <HumAndWindCard image={HumidityImage} unit='%' amount='80' name='Humidity' />
+                        <ErrorBoundary fallback={<p>Something went wrong</p>}>
+                            <HumAndWindCard image={HumidityImage} name='Humidity' />
+                        </ErrorBoundary>
                     </div>
                     <div>
-                        <HumAndWindCard image={WindSpeed} unit='KM/H' amount='5' name='Wind Speed' />
+                        <ErrorBoundary fallback={<p>Something went wrong</p>}>
+                            <HumAndWindCard image={WindSpeed} name='Wind Speed' />
+                        </ErrorBoundary>
                     </div>
                 </div>
             </div>
-
-        </div>
+        </div >
     )
 }
 
